@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import Btndelete from './btnDelete'
+import Btnupdate from './btnUpdate'
 
 class Resumen extends Component {
     constructor(props, context) { 
@@ -19,12 +21,14 @@ class Resumen extends Component {
       componentDidMount(){
         this.getResumen();
       }
+      componentDidUpdate(){
+        this.getResumen()
+      }
     
       getResumen(){
         fetch('http://localhost:4000/budget')
         .then(res => res.json())
         .then(data => {
-          console.log(data);
           this.setState({
             top: data.top10,
             ingresos: data.ingresos[0].total,
@@ -44,26 +48,22 @@ class Resumen extends Component {
       render(){
         return (
           <div className="container">
-            <nav className="navbar navbar-light bg-light">
-              <a className="navbar-brand" href="#">SISTEMAS DE INGRESOS Y EGRESOS PERSONALES</a>
-            </nav>
-    
             <section>
                   <div className="container center-align">
-                      <h2>RESUMEN</h2>
-                      <div className="row">
-                          <div className="col">
-                            <label htmlFor="">INGRESOS: {this.state.ingresos}</label>
+                      <h3 className="border border-light">Resumen</h3>
+                      <div className="row shadow p-3 mb-5 bg-white rounded">
+                          <div className="col p-3 mb-2 bg-success text-white ">
+                            <label htmlFor="">INGRESOS: $ {this.state.ingresos}</label>
                           </div>
-                          <div className="col">
-                            <label htmlFor="">EGRESOS: {this.state.egresos}</label>
+                          <div className="col p-3 mb-2 bg-danger text-white">
+                            <label htmlFor="">EGRESOS: $ {this.state.egresos}</label>
                           </div>
-                          <div className="col">
-                            <label htmlFor="">SALDO: {this.state.saldo}</label>
+                          <div className="col p-3 mb-2 bg-info text-white">
+                            <label htmlFor="">SALDO: $ {this.state.saldo}</label>
                           </div>
                       </div><br/>
                       <h3>Ultimos 10 movimientos</h3>
-                      <table className="table">
+                      <table className="table shadow p-3 mb-5 bg-white rounded">
                           <thead className= "thead-dark">
                               <tr> 
                                   <th scope="col">Fecha</th>
@@ -71,6 +71,8 @@ class Resumen extends Component {
                                   <th scope="col">Detalle</th>
                                   <th scope="col">Descripcion</th>
                                   <th scope="col">Tipo</th>
+                                  <th scope="col">Editar</th>
+                                  <th scope="col">Eliminar</th>
                               </tr>
                           </thead>
     
@@ -82,10 +84,19 @@ class Resumen extends Component {
                                       return (
                                           <tr key={t.id}>
                                               <td >{t.fecha}</td>
-                                              <td>{t.monto}</td>
+                                              <td>$ {t.monto}</td>
                                               <td>{t.detalle}</td>
                                               <td>{t.descripcion}</td>
-                                              <td>{t.tipo.data == 1 ? 'Ingreso' : 'Egreso'}</td>           
+                                              <td>{t.tipo.data = 1 ? 'Ingreso' : 'Egreso'}</td>           
+                                              <td><Btnupdate 
+                                                    id={t.id}
+                                                    fecha={t.fecha}
+                                                    monto={t.monto}
+                                                    detalle={t.detalle}
+                                                    descripcion={t.descripcion}
+                                                    />      
+                                              </td>           
+                                              <td><Btndelete id={t.id}/></td>                          
                                           </tr>
                                       )
                                   } )

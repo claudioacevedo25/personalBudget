@@ -4,6 +4,7 @@ const pool = require('../../database')
 
 
 
+
 app.get('/', async (req, res) => {
    const gastos = await pool.query(
   `select  sum(u.monto) as "total"
@@ -42,7 +43,6 @@ app.get('/addmov', async (req, res) => {
 })
 
 app.post('/addmov', async (req, res) => {
-console.log(req.body);
     const {fecha, monto, descripcion, categoria} = req.body
     const newMov = {
             fecha,
@@ -64,5 +64,40 @@ console.log(req.body);
        console.log(error);
    }
    
+})
+
+app.post('/delete', async (req, res) => {
+    const id = req.body.id
+    const deleted = await pool.query(`DELETE from movimientos WHERE id =${id}` )
+   
+    res.json({
+        estado: 'ok',
+        deleted
+    })
+})
+
+app.put('/edit', async (req, res) => {
+    const id = req.body.id
+    const {fecha, monto, descripcion, categoria} = req.body
+    const edit = {
+        fecha,
+        monto, 
+        descripcion,
+        categoria
+    }
+
+    try {
+        const editado =  await pool.query('UPDATE  movimientos set ?', [edit])
+        if(editado){
+            res.json({
+                mensaje: 'recibido',
+                editado
+            })
+        }
+   } catch (error) {
+       console.log(error);
+   }
+
+
 })
 module.exports = app

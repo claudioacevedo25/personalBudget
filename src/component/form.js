@@ -72,17 +72,17 @@ class Form extends Component {
                 <div className="form-row">
                     <div className="col-md-6 mb-3">
                             <label >Fecha</label>
-                            <input onChange={this.handleChange} type="date" name="fecha" id="" className="form-control"/>
+                            <input onChange={this.handleChange} type="date" name="fecha" id="" className="form-control" required/>
                     </div>
                     <div className="col-md-6 mb-3">
                         <label htmlFor="">Monto</label>
-                        <input onChange={this.handleChange} type="number" name="monto" id="" className="form-control"/>
+                        <input onChange={this.handleChange} type="number" name="monto" id="" className="form-control" required/>
                     </div>
                 </div>
                 <div className="form-row">
                     <div className="col-md-6 mb-3">
                         <label htmlFor="">Detalle</label>
-                        <select onChange={this.handleChange} name="categoria" id="" className="form-control">
+                        <select onChange={this.handleChange} name="categoria" id="" className="form-control" required>
                             {
                                 this.state.detalle.map( detail => {
                                     return(
@@ -96,7 +96,7 @@ class Form extends Component {
 
                     <div className="col-md-6 mb-3">
                         <label htmlFor="">Descripcion</label>
-                        <input onChange={this.handleChange} type="text" name="descripcion" id="" className="form-control"/>
+                        <input onChange={this.handleChange} type="text" name="descripcion" id="" className="form-control" required/>
                     </div>
                 </div>
                 <button className="btn btn-primary" type="submit">ACEPTAR CAMBIOS</button>
