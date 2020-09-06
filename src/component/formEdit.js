@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class Form extends Component {
+class Formedit extends Component {
     constructor(props, context){
         super(props, context);
             this.state = {
@@ -12,7 +12,7 @@ class Form extends Component {
             }
 
             this.handleChange = this.handleChange.bind(this)
-            this.addMov = this.addMov.bind(this);
+            this.editMov = this.editMov.bind(this);
             this.ref = React.createRef()
     }
 
@@ -33,10 +33,10 @@ class Form extends Component {
     }
     
 
-    addMov(e){
+    editMov(e){
     
-        fetch('http://localhost:4000/budget/addmov', {
-            method: 'POST',
+        fetch('http://localhost:4000/budget/edit', {
+            method: 'PUT',
             body: JSON.stringify(this.state ),
             headers: { 
                 'Accept': 'application/json',
@@ -67,8 +67,8 @@ class Form extends Component {
     render(){
     return (
        <div className= "container">
-           <h1 className= "text-center shadow p-3 mb-5 bg-white rounded">Nuevos Movimientos</h1>
-            <form onSubmit={this.addMov}>
+           <h1 className= "text-center">Editar Movimiento</h1>
+            <form onSubmit={this.editMov}>
                 <div className="form-row">
                     <div className="col-md-6 mb-3">
                             <label >Fecha</label>
@@ -99,11 +99,11 @@ class Form extends Component {
                         <input onChange={this.handleChange} type="text" name="descripcion" id="" className="form-control" required/>
                     </div>
                 </div>
-                <button className="btn btn-primary" type="submit">ACEPTAR CAMBIOS</button>
+                <button className="btn btn-primary" type="submit">EDITAR</button>
                 </form>
        </div>
     )
     }
 }
 
-export default Form;
+export default Formedit;

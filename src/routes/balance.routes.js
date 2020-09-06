@@ -76,28 +76,32 @@ app.post('/delete', async (req, res) => {
     })
 })
 
-app.put('/edit', async (req, res) => {
-    const id = req.body.id
-    const {fecha, monto, descripcion, categoria} = req.body
-    const edit = {
-        fecha,
-        monto, 
-        descripcion,
-        categoria
-    }
+app.post('/edit', async (req, res)=>{
+    const id = await req.body.id
+    const edit = await pool.query(`SELECT * FROM movimientos WHERE id =${id}`)
+    res.render('budget/edit', {edit: edit[0]})
+})
 
-    try {
-        const editado =  await pool.query('UPDATE  movimientos set ?', [edit])
-        if(editado){
+app.put('/edit', async (req, res) => {
+    const {fecha, monto, descripcion, categoria, id} = req.body
+    const editMov = {
+            fecha,
+            monto, 
+            descripcion,
+            categoria
+    }
+   
+   
+   try {
+        const recibido =  await pool.query('Update movimientos set ? WHERE id=?', [editMov, id] )
+        if(recibido){
             res.json({
                 mensaje: 'recibido',
-                editado
+                recibido
             })
         }
    } catch (error) {
        console.log(error);
    }
-
-
 })
 module.exports = app

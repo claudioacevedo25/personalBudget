@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Btndelete from './btnDelete'
-import Btnupdate from './btnUpdate'
+import Btnedit from './btnEdit'
 
 class Resumen extends Component {
     constructor(props, context) { 
@@ -87,15 +87,8 @@ class Resumen extends Component {
                                               <td>$ {t.monto}</td>
                                               <td>{t.detalle}</td>
                                               <td>{t.descripcion}</td>
-                                              <td>{t.tipo.data = 1 ? 'Ingreso' : 'Egreso'}</td>           
-                                              <td><Btnupdate 
-                                                    id={t.id}
-                                                    fecha={t.fecha}
-                                                    monto={t.monto}
-                                                    detalle={t.detalle}
-                                                    descripcion={t.descripcion}
-                                                    />      
-                                              </td>           
+                                              <td>{t.tipo.data == 1 ? 'Ingreso' : 'Egreso'}</td>           
+                                              <td><Btnedit id={t.id}/></td>           
                                               <td><Btndelete id={t.id}/></td>                          
                                           </tr>
                                       )

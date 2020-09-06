@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import { BrowserRouter as Router, Route, Link, Switch, Redirect, HashRouter} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom'
 import Form from './form'
+import Formedit from './formEdit'
 
 
 class Navbar extends Component {
@@ -17,7 +18,8 @@ class Navbar extends Component {
                      </div>
                 </nav>
                 <Switch>
-                    <Route path='/budget/addmov' exact component={Form}></Route>
+                    <Route path='/budget/addmov' exact component={Form}></Route>                  
+                    <Route path='/budget/edit' exact component={Formedit}></Route>                  
                 </Switch>
             </Router>
         )

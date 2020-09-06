@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class Btndelete extends Component {
+class Btnedit extends Component {
     constructor(props, context){
         super(props, context)
         this.state ={
@@ -14,7 +14,7 @@ class Btndelete extends Component {
 
     postId(e){
     
-        fetch('http://localhost:4000/budget/delete/', {
+        fetch('http://localhost:4000/budget/edit', {
             method: 'POST',
             body: JSON.stringify(this.props ),
             headers: { 
@@ -22,7 +22,7 @@ class Btndelete extends Component {
                 'Content-Type': 'application/json'
             }
         })
-        .then(res => {
+        .then(res => { 
             if(res.ok){
               return res.json()
             }
@@ -46,10 +46,10 @@ render(){
     return(
         <form onSubmit={this.postId}>
             <input onChange={this.handleChange} type="hidden" name="id"/>
-            <button className="btn btn-danger" type="submit">Delete</button>
+            <button className="btn btn-info" type="submit">Edit</button>
         </form>
     )
 }
 }
 
-export default Btndelete
+export default Btnedit
